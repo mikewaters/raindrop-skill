@@ -143,6 +143,18 @@ curl -s "https://api.raindrop.io/rest/v1/raindrops/{collectionId}/export.csv" \
 
 Formats: csv, html, zip
 
+### Fetch page content from a bookmark
+
+Extract readable text from a bookmark's cached copy or live URL:
+```bash
+uv run scripts/fetch_content.py <raindrop_id> --source cache   # Raindrop's permanent copy (PRO)
+uv run scripts/fetch_content.py <raindrop_id> --source live    # Current live URL
+uv run scripts/fetch_content.py <raindrop_id> --source cache --max-chars 0  # No truncation
+```
+
+Outputs YAML frontmatter (title, url, source, raindrop_id) followed by extracted text.
+Default truncation: 100,000 characters. Use `--max-chars 0` to disable.
+
 ## Rate Limits
 
 120 requests/minute. Check headers: `X-RateLimit-Limit`, `RateLimit-Remaining`, `X-RateLimit-Reset`
